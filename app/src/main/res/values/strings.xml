@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">Countdown App</string>
+    <string name="title_activity_timer_creator">Start A Countdown</string>
+    <string name="title_activity_countdown_editor">Edit Countdown</string>
+
+    <string name="submit">Submit</string>
+    <string name="submit_changes">Submit Changes</string>
+    <string name="change_to_date">Change to Date</string>
+    <string name="change_to_date_time">Change to Time</string>
+    <string name="delete">Delete</string>
+
+    <string name="date">Date</string>
+    <string name="time">Time</string>
+    <string name="name">Name</string>
+    <string name="click_to_set">Click to Set</string>
+
+    <string name="countdown_missing_value">You must set all the values to create a countdown!</string>
+    <string name="countdown_past">You cannot set a countdown for a past time!</string>
+</resources>
