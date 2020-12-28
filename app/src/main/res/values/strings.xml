@@ -16,4 +16,17 @@
 
     <string name="countdown_missing_value">You must set all the values to create a countdown!</string>
     <string name="countdown_past">You cannot set a countdown for a past time!</string>
+
+    <string name = "reminder">Remind me</string>
+    <string name = "time_before"> before the countdown ends.</string>
+    <string name = "regular_intervals">Every </string>
+    <string name = "from">From </string>
+    <string name = "to">To </string>
+
+    <string-array name="reminder_units">
+        <item>Days</item>
+        <item>Weeks</item>
+        <item>Months</item>
+        <item>Years</item>
+    </string-array>
 </resources>

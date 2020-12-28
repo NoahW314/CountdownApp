@@ -36,10 +36,48 @@
             android:hint="@string/click_to_set"/>
     </RelativeLayout>
 
-    <DatePicker
-        android:id="@+id/date_picker"
+    <RelativeLayout
+        android:id="@+id/date_date_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp">
+
+        <TextView
+            android:id="@+id/date_date_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:text="@string/date"
+            android:layout_marginStart="15dp"
+            android:layout_marginLeft="15dp"
+            android:textColor="@color/black"/>
+
+        <EditText
+            android:id="@+id/date_date_text"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/date_date_label"
+            android:layout_toEndOf="@id/date_date_label"
+            android:layout_marginLeft="5dp"
+            android:layout_marginStart="5dp"
+            android:clickable="true"
+            android:focusable="false"
+            android:importantForAutofill="no"
+            android:inputType="none"
+            android:hint="@string/click_to_set"/>
+    </RelativeLayout>
+
+
+    <com.example.countdownapp.ReminderView
+        android:id="@+id/date_reminder"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"/>
+
+<!--    <DatePicker-->
+<!--        android:id="@+id/date_picker"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginTop="15dp"/>-->
 
 </LinearLayout>

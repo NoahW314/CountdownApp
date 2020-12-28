@@ -18,6 +18,7 @@ import java.util.Locale;
 public class CountdownView extends FrameLayout {
     public CountdownView(Context context, Countdown countdown) {
         super(context);
+        //TODO: modify this view to include an indicator or something for the reminder
         inflate(context, R.layout.countdown_view, this);
 
         TextView name = findViewById(R.id.name);
@@ -44,7 +45,7 @@ public class CountdownView extends FrameLayout {
         return countdown.date.format(DateTimeFormatter.ofPattern("MMMM d, yyyy", Locale.US));
     }
     private String formatEndDateTime(Countdown countdown){
-        return countdown.getDateTime().format(DateTimeFormatter.ofPattern("MMMM d, yyyy, h:mm a", Locale.US));
+        return countdown.getDateTime().format(DateTimeFormatter.ofPattern("MMMM d, yyyy, H:mm", Locale.US));
     }
 
     private String formatDateTimeDiff(long millisLeft){

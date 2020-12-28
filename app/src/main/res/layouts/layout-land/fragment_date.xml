@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal"
+    android:focusableInTouchMode="true"
+    android:focusable="true"
+    android:clickable="true">
+
+    <LinearLayout
+        android:id="@+id/date_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_marginTop="15dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/name_date_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/name"
+            android:layout_marginStart="15dp"
+            android:layout_marginLeft="15dp"
+            android:textColor="@color/black"/>
+
+        <EditText
+            android:id="@+id/name_date_text"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginStart="5dp"
+            android:importantForAutofill="no"
+            android:inputType="text"
+            android:hint="@string/click_to_set"/>
+
+
+        <TextView
+            android:id="@+id/date_date_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/date"
+            android:layout_marginStart="15dp"
+            android:layout_marginLeft="15dp"
+            android:textColor="@color/black"/>
+
+        <EditText
+            android:id="@+id/date_date_text"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginStart="5dp"
+            android:clickable="true"
+            android:focusable="false"
+            android:importantForAutofill="no"
+            android:inputType="none"
+            android:hint="@string/click_to_set"/>
+    </LinearLayout>
+
+
+    <com.example.countdownapp.ReminderView
+        android:id="@+id/date_reminder"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_marginTop="15dp"/>
+
+</LinearLayout>

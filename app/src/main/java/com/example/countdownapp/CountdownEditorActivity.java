@@ -31,6 +31,7 @@ public class CountdownEditorActivity extends AppCompatActivity {
 
     private Countdown countdown;
     private Fragment currentFragment;
+    private boolean isTimeSensitive;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +47,7 @@ public class CountdownEditorActivity extends AppCompatActivity {
 
         int index = getIntent().getIntExtra(Countdowns.intentName, -1);
         countdown = Countdowns.getInstance().get(index);
+        isTimeSensitive = countdown.isTimeSensitive;
 
         setFragment();
     }
@@ -55,7 +57,7 @@ public class CountdownEditorActivity extends AppCompatActivity {
         FragmentTransaction trans = manager.beginTransaction();
         if(currentFragment != null) trans.remove(currentFragment);
 
-        if(countdown.isTimeSensitive){
+        if(isTimeSensitive){
             currentFragment = new TimeFragment(countdown);
             findViewById(R.id.change_to_date).setVisibility(View.VISIBLE);
         }
@@ -69,32 +71,35 @@ public class CountdownEditorActivity extends AppCompatActivity {
     }
 
     public void handleTypeChange(View view) {
-        if (countdown.isTimeSensitive != (view.getId() == R.id.change_to_date)) throw new AssertionError("This view cannot be changed because it is already of that type!");
+        if (isTimeSensitive != (view.getId() == R.id.change_to_date)) throw new AssertionError("This view cannot be changed because it is already of that type!");
 
-        countdown.isTimeSensitive = !countdown.isTimeSensitive;
+        isTimeSensitive = !isTimeSensitive;
         view.setVisibility(View.GONE);
         setFragment();
     }
 
+    //TODO: set the reminder info on the countdown
     public void handleSubmitChangesButtonClick(View view){
         Countdown countdown = null;
         //true if we have all the information needed to created a countdown object
         CountdownCreationError creationError = null;
         //Date Countdown
-        if(!this.countdown.isTimeSensitive){
+        if(!isTimeSensitive){
             String name = ((EditText)findViewById(R.id.name_date_text)).getText().toString();
-            if(name.equals("")) creationError = CountdownCreationError.MISSING_VALUES;
+            String dateString = ((EditText)findViewById(R.id.date_date_text)).getText().toString();
+            if(name.equals("") || dateString.equals("")) creationError = CountdownCreationError.MISSING_VALUES;
 
-            DatePicker datePicker = findViewById(R.id.date_picker);
-            LocalDate date = LocalDate.of(datePicker.getYear(), datePicker.getMonth()+1, datePicker.getDayOfMonth());
 
-            countdown = new Countdown(name, date);
+            if(creationError == null) {
+                LocalDate date = LocalDate.parse(dateString, dateFormatter);
+                countdown = new Countdown(name, date);
+            }
         }
         //Time Countdown
         else{
             String name = ((EditText)findViewById(R.id.name_time_text)).getText().toString();
             String timeString = ((EditText)findViewById(R.id.time_text)).getText().toString();
-            String dateString = ((EditText)findViewById(R.id.date_text)).getText().toString();
+            String dateString = ((EditText)findViewById(R.id.time_date_text)).getText().toString();
             if(name.equals("") || timeString.equals("") || dateString.equals("")) creationError = CountdownCreationError.MISSING_VALUES;
 
             if(creationError == null) {
@@ -117,7 +122,7 @@ public class CountdownEditorActivity extends AppCompatActivity {
         }
         else{
             Toast toast = Toast.makeText(this, creationError.getErrorMessage(), Toast.LENGTH_SHORT);
-            TextView v = (TextView) toast.getView().findViewById(android.R.id.message);
+            TextView v = toast.getView().findViewById(android.R.id.message);
             if( v != null) v.setGravity(Gravity.CENTER);
             toast.show();
         }
@@ -140,12 +145,12 @@ public class CountdownEditorActivity extends AppCompatActivity {
         return false;
     }
 
-    @Override
+    /*@Override
     public void onBackPressed(){
         new AlertDialog.Builder(this)
                 .setMessage("Discard Changes?")
                 .setPositiveButton("OK", (dialog, which) -> super.onBackPressed())
                 .setNegativeButton("Cancel", null)
                 .show();
-    }
+    }*/
 }

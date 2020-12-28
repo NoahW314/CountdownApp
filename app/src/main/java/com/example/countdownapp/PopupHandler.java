@@ -20,7 +20,7 @@ public class PopupHandler{
         InputMethodManager imm = (InputMethodManager) view.getContext().getSystemService(Activity.INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }
-    public static void popupDate(View view, View clearFocus){
+    public static void popupDate(View view, View clearFocus, boolean includeToday){
         clearFocus.clearFocus();
         final EditText text = (EditText)view;
         String currentDate = text.getText().toString();
@@ -32,7 +32,8 @@ public class PopupHandler{
         DatePickerDialog dialog = new DatePickerDialog(text.getContext(), (view1, year, month, dayOfMonth) ->
                 text.setText(LocalDate.of(year, month+1, dayOfMonth).format(dateFormatter)), date.getYear(), date.getMonthValue()-1, date.getDayOfMonth());
 
-        dialog.getDatePicker().setMinDate(System.currentTimeMillis());
+        if(includeToday) dialog.getDatePicker().setMinDate(System.currentTimeMillis());
+        else dialog.getDatePicker().setMinDate(System.currentTimeMillis()+86_400_000);
         dialog.show();
 
         hideKeyboard(view);
@@ -48,7 +49,7 @@ public class PopupHandler{
         }
 
         TimePickerDialog dialog = new TimePickerDialog(text.getContext(), (view1, hourOfDay, minute) ->
-                text.setText(LocalTime.of(hourOfDay, minute).format(timeFormatter)), time.getHour(), time.getMinute(),false);
+                text.setText(LocalTime.of(hourOfDay, minute).format(timeFormatter)), time.getHour(), time.getMinute(),true);
         dialog.show();
 
         hideKeyboard(view);

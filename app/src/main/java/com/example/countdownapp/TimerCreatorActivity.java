@@ -21,13 +21,12 @@ import com.google.android.material.tabs.TabLayoutMediator;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
-import java.util.Locale;
 
 import static com.example.countdownapp.Countdown.dateFormatter;
 import static com.example.countdownapp.Countdown.timeFormatter;
 import static com.example.countdownapp.TimerCreatorActivity.TimerPage.DATE;
 import static com.example.countdownapp.TimerCreatorActivity.TimerPage.TIME;
+
 
 public class TimerCreatorActivity extends AppCompatActivity {
     public static final String TAG = "TimerCreatorTag";
@@ -54,6 +53,7 @@ public class TimerCreatorActivity extends AppCompatActivity {
         }).attach();
     }
 
+    //TODO: set the reminder info on the countdown
     public void handleSubmitButtonClick(View view){
         ViewPager2 pager = findViewById(R.id.pager);
         Countdown countdown = null;
@@ -62,18 +62,19 @@ public class TimerCreatorActivity extends AppCompatActivity {
         //Date Tab
         if(pager.getCurrentItem() == DATE.id){
             String name = ((EditText)findViewById(R.id.name_date_text)).getText().toString();
-            if(name.equals("")) creationError = CountdownCreationError.MISSING_VALUES;
+            String dateString = ((EditText)findViewById(R.id.date_date_text)).getText().toString();
+            if(name.equals("") || dateString.equals("")) creationError = CountdownCreationError.MISSING_VALUES;
 
-            DatePicker datePicker = findViewById(R.id.date_picker);
-            LocalDate date = LocalDate.of(datePicker.getYear(), datePicker.getMonth()+1, datePicker.getDayOfMonth());
-
-            countdown = new Countdown(name, date);
+            if(creationError == null) {
+                LocalDate date = LocalDate.parse(dateString, dateFormatter);
+                countdown = new Countdown(name, date);
+            }
         }
         //Time Tab
         else if(pager.getCurrentItem() == TIME.id){
             String name = ((EditText)findViewById(R.id.name_time_text)).getText().toString();
             String timeString = ((EditText)findViewById(R.id.time_text)).getText().toString();
-            String dateString = ((EditText)findViewById(R.id.date_text)).getText().toString();
+            String dateString = ((EditText)findViewById(R.id.time_date_text)).getText().toString();
             if(name.equals("") || timeString.equals("") || dateString.equals("")) creationError = CountdownCreationError.MISSING_VALUES;
 
             if(creationError == null) {

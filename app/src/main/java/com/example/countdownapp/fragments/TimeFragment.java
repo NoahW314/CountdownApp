@@ -30,11 +30,11 @@ public class TimeFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_time, container, false);
 
         EditText timeText = view.findViewById(R.id.time_text);
-        EditText dateText = view.findViewById(R.id.date_text);
+        EditText dateText = view.findViewById(R.id.time_date_text);
         final EditText nameText = view.findViewById(R.id.name_time_text);
 
         timeText.setOnClickListener(v -> PopupHandler.popupTime(v, nameText));
-        dateText.setOnClickListener(v -> PopupHandler.popupDate(v, nameText));
+        dateText.setOnClickListener(v -> PopupHandler.popupDate(v, nameText, true));
 
         nameText.setOnFocusChangeListener(PopupHandler::onFocusChanged);
         timeText.setOnFocusChangeListener(PopupHandler::onFocusChanged);
@@ -46,6 +46,8 @@ public class TimeFragment extends Fragment {
             nameText.setText(countdown.name);
             if(countdown.time != null) timeText.setText(countdown.time.format(timeFormatter));
             dateText.setText(countdown.date.format(dateFormatter));
+
+            //TODO: get the reminder info in the countdown object
         }
         return view;
     }

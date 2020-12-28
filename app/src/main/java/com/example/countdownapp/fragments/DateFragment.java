@@ -15,6 +15,8 @@ import com.example.countdownapp.Countdown;
 import com.example.countdownapp.PopupHandler;
 import com.example.countdownapp.R;
 
+import static com.example.countdownapp.Countdown.dateFormatter;
+
 public class DateFragment extends Fragment {
     private Countdown countdown;
 
@@ -26,16 +28,21 @@ public class DateFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_date, container, false);
-        DatePicker datePicker = view.findViewById(R.id.date_picker);
-        datePicker.setMinDate(System.currentTimeMillis()+86_400_000);
 
-        EditText nameText = view.findViewById(R.id.name_date_text);
+        final EditText nameText = view.findViewById(R.id.name_date_text);
+        EditText dateText = view.findViewById(R.id.date_date_text);
         nameText.setOnFocusChangeListener(PopupHandler::onFocusChanged);
+
+        dateText.setOnClickListener(v -> PopupHandler.popupDate(v, nameText, false));
+
+        nameText.setOnFocusChangeListener(PopupHandler::onFocusChanged);
+        dateText.setOnFocusChangeListener(PopupHandler::onFocusChanged);
 
         if(countdown != null){
             nameText.setText(countdown.name);
+            dateText.setText(countdown.date.format(dateFormatter));
 
-            datePicker.updateDate(countdown.date.getYear(), countdown.date.getMonthValue()-1, countdown.date.getDayOfMonth());
+            //TODO: get the reminder info in the countdown object
         }
         return view;
     }

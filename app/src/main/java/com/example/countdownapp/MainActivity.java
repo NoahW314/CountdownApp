@@ -19,6 +19,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
+//TODO: Determine how to schedule/send a notification (especially when app is sleeping/dead. How?)
 public class MainActivity extends AppCompatActivity {
 
     public static final String TAG = "MyMainActivity";

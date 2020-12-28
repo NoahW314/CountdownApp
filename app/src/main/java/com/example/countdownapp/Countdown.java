@@ -10,15 +10,25 @@ import java.util.Locale;
 public class Countdown {
     public static final String TAG = "Countdown";
 
-    public static DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("h:mm a", Locale.US);
+    //TODO: add a settings page to change between military and standard time??
+    public static DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("H:mm", Locale.US);
     public static DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("M/d/yyyy");
 
+    //TODO: add fields for reminder info
     public String name;
     public LocalDate date;
     public LocalTime time;
     public boolean isTimeSensitive;
     public boolean isFinished;
 
+    /**Copies the countdown object*/
+    public Countdown(Countdown countdown){
+        this.name = countdown.name;
+        this.date = countdown.date;
+        this.time = countdown.time;
+        this.isTimeSensitive = countdown.isTimeSensitive;
+        this.isFinished = countdown.isFinished;
+    }
     public Countdown(String name, LocalDate date){
         this.name = name;
         this.date = date;
